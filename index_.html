@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Conversor</title>
+        <link href="css/style.css" rel="stylesheet"/>
+        <link href="css/uploadify.css" rel="stylesheet"/>        
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/swfobject.js"></script>
+        <script type="text/javascript" src="js/jquery.uploadify.v2.1.4.min.js"></script>
+
+        <script type="text/javascript">
+            
+            jQuery(function($){
+                $("#file").uploadify({
+                    'uploader'      : 'swf/uploadify.swf',
+                    'script'        : 'conversor.php',
+                    'cancelImg'     : 'img/cancel.png',
+                    'fileExt'       : '*.gif;',
+                    'sizeLimit'     : (1024 * 2000),
+                    'fileDesc'      : 'Image Files',
+                    'folder'        : './uploaded',
+                    'auto'          : true,
+                    'multi'         : false,
+                    'onComplete'    : function(e, qid, f, response, udata) {
+                        var obj = $.parseJSON(response);
+                       
+                        $("#img img").attr("src", obj.urlgif)
+                        $('#animTest').html("");
+                        $('#jpgpath').val(obj.fileanimate);
+                        $('#gifpath').val(obj.filegif);
+                        swfobject.embedSWF("./swf/TestGif.swf", "animTest", 80, 80, "9.0.0", "./swf/expressInstall.swf", {urlGif: obj.urlanimate});
+                    }
+                });
+                
+                
+                $("#form").submit(function(e)  { 
+   
+                    if (!e.isDefaultPrevented()) {
+      
+                        $.ajax({
+                            type: 'GET',
+                            url: "./conversor.php",
+                            data: {url : $("#url").val()},
+                            success: function(data){
+                            
+                                var obj = $.parseJSON(data);
+                           
+                                if(obj.status == "error"){
+                                    $("#url").addClass("errorInput");
+                                    $(".error").html(obj.message);
+                                    $("#img img").attr("src", './img/gif.jpg');
+                                    $('#animTest').html('<img src="./img/anim.jpg" />');
+                                }else{
+                                    $("#url").removeClass("errorInput");
+                                    $(".error").html("")
+                                    $("#img img").attr("src", obj.urlgif)
+                                    $('#animTest').html("");
+                                    $('#jpgpath').val(obj.fileanimate);
+                                    $('#gifpath').val(obj.filegif);
+                                    swfobject.embedSWF("./swf/TestGif.swf", "animTest", 80, 80, "9.0.0", "./swf/expressInstall.swf", {urlGif: obj.urlanimate});
+                                }
+                            }
+                        });
+
+                        e.preventDefault();
+                    } 
+   
+                });
+                
+                $(".filepath").click(function(){
+                    $(this).select();
+                });
+                $(".ext").click(function(e){
+                    
+                    
+                    $("#internal").toggle();
+                    $("#external").toggle();
+                    $("#url").focus();
+                    
+                    e.preventDefault();
+                });
+            });
+        </script>
+    </head>
+    <body>
+
+        <div id="zone1">
+            <h1>Xat Animation Tools</h1>
+            <p>Convierte animaciones.</p>
+            <p class="error"></p>
+            <form action="#" method="post" id="form">
+                <div id="internal">
+                    <input type="file" name="file" id="file" /> 
+                    <br />
+                    <a href="#" class="ext">¿Quieres convertir una imagen externa?</a>
+                </div>
+                <div id="external" style="display:none;">
+                    <input type="url" name="url" required="required" id="url" />
+                    <input type="submit" value="Convertir" />
+                    <br />
+                    <a href="#" class="ext">¿Quieres convertir una imagen desde tu PC?</a>
+                </div>
+            </form>
+        </div>
+
+        <div id="zone2">
+            <div class="table">
+                <div class="column">
+                    <p>Gif Animado</p>
+                    <div id="img"><img src="./img/gif.jpg" /></div>
+                </div>
+                <div class="column">
+                    <p>Xat Animation</p>
+                    <div id="animHolder">
+                        <div id="animTest"><img src="./img/anim.jpg" /></div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="column">
+                    <p>Ruta al Archivo</p>
+                    <input type="text" value="" class="input filepath" id="jpgpath" />
+                    <input type="text" value="" class="input filepath" placeholder="http://" id="gifpath" />
+                </div>
+            </div>
+
+
+        </div>
+    </body>
+</html>

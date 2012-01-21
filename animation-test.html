@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+        <title>Probador de Gifs</title>
+        <link href="css/style.css" rel="stylesheet"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/swfobject.js"></script>
+        <script type="text/javascript">
+            
+            function draw(url){
+                
+                if(typeof(url) == 'undefined'){
+                    draw_defined();
+                    return false;
+                }else{
+                    size = url.length;
+                    if((url.substring(0,7) != 'http://')){
+                        alert('La URL del gif debe empezar con "http://"');
+                    }else if((url.substring(size-4,size) != '.png') && 
+                        (url.substring(size-4,size) != '.gif') && 
+                        (url.substring(size-4,size) != '.jpg')){
+                        alert('La URL del gif debe terminar en ".png" o ".gif" ó ".jpg"')
+                    }else{
+                        swfobject.embedSWF("./swf/TestGif.swf", "animTest", 80, 80, "9.0.0", "./swf/expressInstall.swf", url);
+                    }
+                }
+            }
+            
+            function draw_defined(){
+                $("#animTest").html('<img src="./img/anim.jpg" />');
+            }
+            
+            jQuery(function($){
+                draw();
+                
+                $("#form").submit(function(e){
+                    e.preventDefault();
+                });
+                
+                $("#send").click(function(e){
+                    draw($("#url").val());
+                });
+            });
+            
+        </script>
+    </head>
+    <body>
+        <h1>Xat Animation Tester</h1>
+
+        <p>Usa este probador para verificar la calidad de tus animaciones. pasa el mouse por encima, y veras el efecto de el power ZOOM.</p>
+
+        <div id="tester">
+            <div id="animHolder">
+                <div id="animTest"></div>
+            </div>
+        </div>
+
+        <br />
+
+        <form action="#" id="form" onsubmit="return false;">
+            <label>URL de la Animacion</label>
+            <input type="text" value="" class="input" placeholder="http://ejemplo.com/animacion.png" name="urlGif" id="url" />
+            <button id="send">Probar</button>
+        </form>
+    </body>
+</html>

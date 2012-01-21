@@ -1,0 +1,89 @@
+{% extends 'layout.html' %}
+
+{% block page_title %} {{ title }} {% endblock %}
+
+{% block styles %}
+<link href="assets/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="assets/css/uploadify.css" rel="stylesheet"/>
+<style type="text/css">
+    body {
+        padding-top: 60px;
+    }
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="assets/js/swfobject.js"></script>
+<script type="text/javascript" src="assets/js/jquery.uploadify.min.js"></script>
+<script type="text/javascript" src="assets/js/init.js"></script>
+{% endblock %}
+
+{% block top_bar%}
+<ul class="nav">
+    <li><a href="#overview">Overview</a></li>
+    <li class="active"><a href="#popovers">Conversor</a></li>
+    <li><a href="#javascript">Tester</a></li>
+    <li><a href="#less">About Me</a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <div class="content">
+        <div class="page-header">
+            <h1>XatTools &raquo; Conversor <small>Convert from gif animated image to animate power tile.</small></h1>
+        </div>
+        <div class="row">
+            <div class="span10">
+                <h2>Main content</h2>
+                <form action="/api/convert_image.php" method="post" id="form">
+                    <div id="internal">
+                        <div class="clearfix row">
+                            <label for="file">Gif Animation</label>
+                            <div class="input">
+                                <input type="file" name="file" id="file" /> 
+                            </div>
+                        </div>
+                        <div id="fileQueue"></div>
+                    </div>
+                    <div id="external" style="display:none;">
+                        <input type="url" name="url" id="url" />
+                        
+                        <br />
+                        <a href="#" class="ext">¿Quieres convertir una imagen desde tu PC?</a>
+                    </div>
+                </form>
+                <a href="#" class="ext">¿Quieres convertir una imagen externa?</a>
+            </div>
+            <div class="span6">
+                    <div class="row">
+                        <div class="span3">
+                            <h3>Animacion Gif</h3>
+                            <div id="img"><img src="./assets/img/gif.jpg" /></div>
+                        </div>
+                        <div class="span3">
+                            <h3>Animacion PNG</h3>
+                            <div id="animTest"><img src="./assets/img/anim.jpg" /></div>
+                        </div>
+                    </div>
+                <div class="row">
+                    <div class="span6">
+                        <input type="text" value="" class="input span6" id="jpgpath" />
+                    </div>
+                    
+                    <div class="span6">
+                        <input type="text" value="" class="input span6" placeholder="http://" id="gifpath" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; Company 2012</p>
+    </footer>
+
+</div> <!-- /container -->
+{% endblock %}
