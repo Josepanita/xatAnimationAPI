@@ -1,3 +1,20 @@
+function show_previews(obj){
+    
+    $("#url").removeClass("errorInput");
+    $(".error").html("");
+    $("#img img").attr("src", obj.urlgif);
+    $('#animTest').html("");
+    $('#jpgpath').val(obj.fileanimate);
+    $('#gifpath').val(obj.filegif);
+    $('#anim').attr('href',obj.urlgif);
+    $('#tile').attr('href',obj.urlanimate);
+    $('#anim,#tile').removeClass('link');
+    
+    swfobject.embedSWF("./assets/swf/TestGif.swf", "animTest", 80, 80, "9.0.0", "./assets/swf/expressInstall.swf", {
+        urlGif: obj.urlanimate
+    });
+}
+
 jQuery(function($){
     $("#file").uploadify({
         'uploader'      : './assets/swf/uploadify.swf',
@@ -6,40 +23,33 @@ jQuery(function($){
         'fileExt'       : '*.gif;',
         'sizeLimit'     : (1024 * 1024),
         'fileDesc'      : 'Image Files',
-        'folder'        : './uploaded',
+        'folder'        : 'uploaded',
         'auto'          : true,
         'multi'         : false,
-        'queueID'        : 'fileQueue',
+        'queueID'       : 'fileQueue',
         'onComplete'    : function(e, qid, f, response, udata) {
+            
             var obj = $.parseJSON(response);
             
-            console.trace(response);
-            console.trace(obj);
-            
             if(obj.uploaded){
-                alert("");
-                $("#img img").attr("src", obj.urlgif)
-                $('#animTest').html("");
-                $('#jpgpath').val(obj.fileanimate);
-                $('#gifpath').val(obj.filegif);
-                swfobject.embedSWF("./assets/swf/TestGif.swf", "animTest", 80, 80, "9.0.0", "./assets/swf/expressInstall.swf", {
-                    urlGif: obj.urlanimate
-                });
+                show_previews(obj);
             }else{
-            alert(");");
+                
             }
-            
         }
     });
                 
-                
+    $("#prev_form").submit(function(e)  {
+        e.preventDefault();
+    });
+    
     $("#form").submit(function(e)  { 
    
         if (!e.isDefaultPrevented()) {
       
             $.ajax({
                 type: 'GET',
-                url: "./conversor.php",
+                url: "./convert_image.php",
                 data: {
                     url : $("#url").val()
                 },
@@ -67,9 +77,8 @@ jQuery(function($){
             });
             e.preventDefault();
         } 
-   
     });
-                
+    
     $(".filepath").click(function(){
         $(this).select();
     });

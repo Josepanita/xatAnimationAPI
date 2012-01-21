@@ -4,7 +4,9 @@
 
 {% block styles %}
 <link href="assets/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="assets/css/docs.css" rel="stylesheet"/>
 <link href="assets/css/uploadify.css" rel="stylesheet"/>
+<link href="assets/css/style.css" rel="stylesheet"/>
 <style type="text/css">
     body {
         padding-top: 60px;
@@ -21,16 +23,14 @@
 
 {% block top_bar%}
 <ul class="nav">
-    <li><a href="#overview">Overview</a></li>
-    <li class="active"><a href="#popovers">Conversor</a></li>
-    <li><a href="#javascript">Tester</a></li>
-    <li><a href="#less">About Me</a></li>
+    <li><a href="./index.php">Overview</a></li>
+    <li class="active"><a href="#">Conversor</a></li>
+    <li><a href="./index.php/tester/">Tester</a></li>
+    <li><a href="./index.php/aboutme/">About Me</a></li>
 </ul>
 {% endblock %}
 
 {% block content %}
-<div class="container">
-
     <div class="content">
         <div class="page-header">
             <h1>XatTools &raquo; Conversor <small>Convert from gif animated image to animate power tile.</small></h1>
@@ -41,49 +41,66 @@
                 <form action="/api/convert_image.php" method="post" id="form">
                     <div id="internal">
                         <div class="clearfix row">
-                            <label for="file">Gif Animation</label>
+                            <label for="file">Imagen</label>
                             <div class="input">
                                 <input type="file" name="file" id="file" /> 
                             </div>
                         </div>
+                        <a href="#" class="ext">¿Quieres convertir una imagen externa?</a>
                         <div id="fileQueue"></div>
                     </div>
                     <div id="external" style="display:none;">
-                        <input type="url" name="url" id="url" />
-                        
-                        <br />
+                        <div class="clearfix row">
+                            <label for="url">Url de la imagen</label>
+                            <div class="input">
+                                <input type="url" name="url" id="url" class="span6"/>
+                            </div>
+                        </div>
                         <a href="#" class="ext">¿Quieres convertir una imagen desde tu PC?</a>
                     </div>
                 </form>
-                <a href="#" class="ext">¿Quieres convertir una imagen externa?</a>
+                
             </div>
             <div class="span6">
-                    <div class="row">
+                <form action="#" class="form-stacked" id="prev_form">
+                    <div class="row clearfix" id="previews">
                         <div class="span3">
-                            <h3>Animacion Gif</h3>
-                            <div id="img"><img src="./assets/img/gif.jpg" /></div>
+                            <h4>Animacion Gif</h4>
+                            <div id="img"><img src="./assets/img/gif.jpg" class="preview" /></div>
                         </div>
                         <div class="span3">
-                            <h3>Animacion PNG</h3>
-                            <div id="animTest"><img src="./assets/img/anim.jpg" /></div>
+                            <h4>Animacion PNG</h4>
+                            <div id="animHolder" class="preview">
+                                <div id="animTest"><img src="./assets/img/anim.jpg" class="preview" /></div>
+                            </div>
                         </div>
                     </div>
-                <div class="row">
-                    <div class="span6">
-                        <input type="text" value="" class="input span6" id="jpgpath" />
+                    <div class="row">
+                        <label for="jpgpath">Imagen Convertida</label>
+                        <div class="clearfix">
+                            <input type="text" value="" class="input span6 filepath" id="jpgpath" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label for="gifpath">Imagen Original</label>
+                        <div class="clearfix">
+                            <input type="text" value="" class="input span6 filepath" placeholder="http://" id="gifpath" />
+                        </div>
                     </div>
                     
-                    <div class="span6">
-                        <input type="text" value="" class="input span6" placeholder="http://" id="gifpath" />
+                    <div class="row">
+                        <div class="clearfix">
+                            <a href="" class="link" id="tile">Animacion Convertida</a>
+                        </div>
+                        
+                        <div class="clearfix">
+                            <a href="" class="link" id="anim">Animacion GIF</a> 
+                        </div>
                     </div>
-                </div>
+
+                </form>
             </div>
         </div>
     </div>
-
-    <footer>
-        <p>&copy; Company 2012</p>
-    </footer>
-
 </div> <!-- /container -->
 {% endblock %}

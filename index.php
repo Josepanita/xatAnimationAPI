@@ -10,7 +10,6 @@ $app = new Slim(array(
             'views' => "TwigView"
         ));
 
-
 //Home Route
 $app->get('/', function () use($app) {
             $title = "XatTools";
@@ -29,8 +28,20 @@ $app->get('/conversor/', function () use($app) {
                     ));
         });
 
-$app->post('/convert/:url', function ($url) use($app) {
-            
-});
+$app->get('/tester/', function () use($app) {
+            $title = "XatTools ~ Tester";
+
+            return $app->render("tester.html", array(
+                        'title' => $title
+                    ));
+        });
+
+$app->get('/aboutme/', function () use($app) {
+            $title = "XatTools ~ About Me";
+
+            return $app->render("aboutme.html", array(
+                        'title' => $title
+                    ));
+        });
 
 $app->run();

@@ -3,13 +3,14 @@
 require_once 'lib/functions.inc';
 
 if (!empty($_FILES)) {
+    
     $tempFile = $_FILES['Filedata']['tmp_name'];
-    $targetPath = $_SERVER['DOCUMENT_ROOT'] . $_REQUEST['folder'] . '/';
+    $targetPath = __DIR__ . "/uploaded/";
     $prefijo = substr(crc32(rand()), 2, 2);
     $filename = $prefijo . "_" . $_FILES['Filedata']['name'];
     $targetFile = str_replace('//', '/', $targetPath) . $filename;
 
-    if (move_uploaded_file($tempFile, $targetFile)) {
+   if (move_uploaded_file($tempFile, $targetFile)) {
 
         chmod($targetFile, "777");
         $image = Create_Animate_Tile($targetFile);
@@ -26,15 +27,13 @@ if (!empty($_FILES)) {
             'fileanimate' => $jpgFile,
             'filegif' => $targetFile
         );
-        echo print_r($_FILES);
         echo json_encode($data);
     }else{
         $data = array(
             'uploaded' => false
-            );
+        );
         echo json_encode($data);
     }
-        
 } else {
     if (!empty($_POST["url"]) || !empty($_GET["url"])) {
 
@@ -76,8 +75,8 @@ if (!empty($_FILES)) {
 
                 $SucessResp += array(
                     'filename' => $filename,
-                    'urlgif' => 'http://localhost/xatTools/uploaded/' . $filename,
-                    'urlanimate' => 'http://localhost/xatTools/uploaded/' . (substr($filename, 0, -4) . ".jpg"),
+                    'urlgif' => 'http://localhost/api/uploaded/' . $filename,
+                    'urlanimate' => 'http://localhost/api/uploaded/' . (substr($filename, 0, -4) . ".jpg"),
                     'fileanimate' => str_replace("/", '\\', $_SERVER['DOCUMENT_ROOT'] . "/xatTools/" . $jpgFile),
                     'filegif' => str_replace("/", '\\', $_SERVER['DOCUMENT_ROOT'] . "/xatTools/" . $targetFile)
                 );

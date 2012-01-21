@@ -1,35 +1,4 @@
-html,input {
-    font: 12px/18px "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, sans-serif;
-}
-
-body {
-    width: 850px;
-    margin: 20px auto;
-    background-color: #999;
-}
-
-#zone1,#zone2{
-    width:400px;
-    display:block;
-    float:left;
-}
-
-#form, #tester{
-    display:inline-block;
-    vertical-align: bottom;
-}
-
-.errorInput{
-    background: #FBCBBC;
-    border:#FBABAC solid 1px;
-}
-.error {
-    color: #F44;
-    font-weight: bold;
-    text-shadow: 0 0 2px gray
-}
-
-#animTest *,.table .column img{
+.preview, #animHolder object{
     -webkit-box-shadow: 0 0 5px black;
     -moz-box-shadow: 0 0 5px black;
     box-shadow: 0 0 5px black; 
@@ -37,45 +6,16 @@ body {
     height:80px;
 }
 
-.table .column{
-    width:100px;
-    float: left;
+#img{
+    width: 80px;
+    padding: 0;
+    margin:0;
 }
 
-.input{
-    width:350px;
-    -webkit-box-shadow: 0 0 5px black;
-    -moz-box-shadow: 0 0 5px black;
-    box-shadow: 0 0 5px black; 
-    height:28px;
-    padding-left:5px;
+#previews .span3{
+    margin-left: 10px;
 }
 
-.clear{
-    clear:both;
-}
-
-div.header{
-    float:left;
-    display:block;
-    width:520px
-}
-
-div.header#zone1{
-    width:300px;
-}
-
-div#internal{
-    display:block;
-}
-
-div#external input[type=submit]{
-    height: 28px;
-}
-
-div#external input#url{
-    width: 280px;
-    height: 28px;
-    padding-left: 5px;
-    margin-bottom: 10px;
+.link{
+    display: none;
 }
