@@ -1,4 +1,4 @@
-{% extends 'layout.html' %}
+{% extends 'layout.php' %}
 
 {% block page_title %} {{ title }} {% endblock %}
 
@@ -23,10 +23,10 @@
 
 {% block top_bar%}
 <ul class="nav">
-    <li><a href="./index.php">Overview</a></li>
+    <li><a href="./">Overview</a></li>
     <li class="active"><a href="#">Conversor</a></li>
-    <li><a href="./index.php/tester/">Tester</a></li>
-    <li><a href="./index.php/aboutme/">About Me</a></li>
+    <li><a href="./tester/">Tester</a></li>
+    <li><a href="./aboutme/">About Me</a></li>
 </ul>
 {% endblock %}
 
@@ -38,7 +38,7 @@
         <div class="row">
             <div class="span10">
                 <h2>Main content</h2>
-                <form action="/api/convert_image.php" method="post" id="form">
+                <form action="{{ root_uri }}/convert_image.php" method="post" id="form">
                     <div id="internal">
                         <div class="clearfix row">
                             <label for="file">Imagen</label>
@@ -102,5 +102,4 @@
             </div>
         </div>
     </div>
-</div> <!-- /container -->
 {% endblock %}

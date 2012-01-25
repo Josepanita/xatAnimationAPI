@@ -1,4 +1,4 @@
-{% extends 'layout.html' %}
+{% extends 'layout.php' %}
 {% block page_title %} {{ title }} {% endblock %}
 {% block styles %}
 <link href="assets/css/bootstrap.min.css" rel="stylesheet"/>
@@ -20,9 +20,9 @@
 {% block top_bar%}
 <ul class="nav">
     <li><a href="./index.php">Overview</a></li>
-    <li><a href="./index.php/conversor/">Conversor</a></li>
-    <li class="active"><a href="./index.php/tester/">Tester</a></li>
-    <li><a href="./index.php/aboutme/">About Me</a></li>
+    <li><a href="./conversor/">Conversor</a></li>
+    <li class="active"><a href="./tester/">Tester</a></li>
+    <li><a href="./aboutme/">About Me</a></li>
 </ul>
 {% endblock %}
 {% block content %}
@@ -41,7 +41,7 @@
                         <button class="btn primary" id="send">Enviar</button>
                     </div>
                 </div>
-                <a href="./index.php/conversor/">Quieres convertir una imagen desde tu PC?</a>
+                <a href="./conversor/">Quieres convertir una imagen desde tu PC?</a>
             </form>
         </div>
         <div class="span6">
